@@ -19,8 +19,8 @@ Repositório definido para a manutenção do controle de versão dos artefatos g
 ### Participantes:
 |#|Nome|Usuário|Papel|
 |---|---|---|---|
-|1|FELIPE GALVÃO LAGARES|[felipelagares](https://github.com/felipelagares)||
-|2|FLAVIMAR DA SILVA ALMEIDA|[flavimarsilva](https://github.com/flavimarsilva)||
+|1|FLAVIMAR DA SILVA ALMEIDA|[flavimarsilva](https://github.com/flavimarsilva)||
+|2|LUCAS OLIVEIRA DE SOUZA|[lucasoliveirasouza](https://github.com/lucasoliveirasouza)||
 |3|MARCOS VINÍCIUS DE MORAES|[Markoro-Original](https://github.com/Markoro-Original)||
 |4|PEDRO HENRIQUE CHAVES JUNQUEIRA|[Denky-san](https://github.com/Denky-san)||
 |5|PEDRO IVO SANTANA MELO|[pedromelo55](https://github.com/pedromelo55)||
