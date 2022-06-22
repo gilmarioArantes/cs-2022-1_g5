@@ -1,8 +1,8 @@
 ### cs-2022-1_g5
 Repositório definido para a manutenção do controle de versão dos artefatos gerados pelo **Grupo 5** na construção de uma API REST, durante o curso da disciplina **Construção de Software**, do quinto período do curso de **Engenharia de Software**, do **INF/UFG**, no semestre 2022/1.
 
-### Descrição do Produto: Uma API para gerenciamentos de livros de uma biblioteca. Nela será possível cadastrar, editar, deletar e listar todos os livros. O livro deverá ter autor, editor e gênero. Portanto, para realizar o cadastro de livros, deverá ter autor, editor e gênero já cadastrados.
-Como atributo, um livro deve ter um titulo, um gênero, uma editora, um autor, um ano de publicação, uma imagem da capa e um ISBN. Já autor, gênero e editora, terão como atributo, um nome cada.
+### Descrição do Produto: 
+Uma API para gerenciamentos de livros de uma biblioteca. Nela será possível cadastrar, editar, deletar e listar todos os livros. O livro deverá ter autor, editor e gênero. Portanto, para realizar o cadastro de livros, deverá ter autor, editor e gênero já cadastrados. Como atributo, um livro deve ter um titulo, um gênero, uma editora, um autor, um ano de publicação, uma imagem da capa e um ISBN. Já autor, gênero e editora, terão como atributo, um nome cada.
 
 #### Requisitos:
 1. Requisito/funcionalidade: Realizar autenticação no sistema. (Fazer cadastro com as informações básicas: nome, usuario, email, senha. E realizar também login (usuario e senha), gerando token de autenticação).
