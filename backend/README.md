@@ -1,9 +1,10 @@
 # API de Biblioteca
 
 #### API documentada:
+https://biblioteca-cs2022.herokuapp.com/swagger-ui.html
+<br>
 
-#### Variáveis de Ambiente
-
+#### Variáveis de Ambiente:
 Será necessário criar variáveis de ambientepara utilizar o Postgres
 Execute os comandos abaixo com o prompt de comando modo administrador, ou crie as variáveis de ambiente no sistema operacional.
 
