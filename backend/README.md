@@ -1,7 +1,7 @@
 # API de Biblioteca
 
 #### API documentada:
-https://biblioteca-cs2022.herokuapp.com/swagger-ui.html
+https://biblio-cs-app.herokuapp.com/v2/api-docs
 <br>
 
 #### Variáveis de Ambiente:
