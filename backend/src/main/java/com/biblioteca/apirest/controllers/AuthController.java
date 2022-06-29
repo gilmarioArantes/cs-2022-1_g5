@@ -1,8 +1,8 @@
 package com.biblioteca.apirest.controllers;
 
 
-import com.biblioteca.apirest.models.ERole;
 import com.biblioteca.apirest.models.Role;
+import com.biblioteca.apirest.models.TypeRole;
 import com.biblioteca.apirest.models.User;
 import com.biblioteca.apirest.payload.request.LoginRequest;
 import com.biblioteca.apirest.payload.request.SignupRequest;
@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 public class AuthController {
     @Autowired
     AuthenticationManager authenticationManager;
@@ -56,7 +56,7 @@ public class AuthController {
     public List<User> getUsers(){
         return userRepository.findAll();
     }
-
+    
     @ApiOperation(value="Realiza login de usuário e retorna token de autenticação")
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -97,33 +97,20 @@ public class AuthController {
         User user = new User(signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
-        Set<String> strRoles = signUpRequest.getRole();
-        Set<Role> roles = new HashSet<>();
-        if (strRoles == null) {
-            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Erro: a função não foi encontrada."));
-            roles.add(userRole);
-        } else {
-            strRoles.forEach(role -> {
-                switch (role) {
-                    case "admin":
-                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Erro: a função não foi encontrada."));
-                        roles.add(adminRole);
-                        break;
-                    case "mod":
-                        Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
-                                .orElseThrow(() -> new RuntimeException("Erro: a função não foi encontrada."));
-                        roles.add(modRole);
-                        break;
-                    default:
-                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                                .orElseThrow(() -> new RuntimeException("Erro: a função não foi encontrada."));
-                        roles.add(userRole);
-                }
-            });
-        }
-        user.setRoles(roles);
+        String strRole = signUpRequest.getRole();
+        Role role;
+            if (strRole.equals("admin")) {
+                 role = roleRepository.findByName(TypeRole.ROLE_ADMIN)
+                        .orElseThrow(() -> new RuntimeException("Erro: a função não foi encontrada."));
+            } else if (strRole.equals("mod")) {
+                role = roleRepository.findByName(TypeRole.ROLE_MODERATOR)
+                        .orElseThrow(() -> new RuntimeException("Erro: a função não foi encontrada."));
+            } else {
+                role = roleRepository.findByName(TypeRole.ROLE_USER)
+                        .orElseThrow(() -> new RuntimeException("Erro: a função não foi encontrada."));
+            }
+
+        user.setRole(role);
         userRepository.save(user);
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
