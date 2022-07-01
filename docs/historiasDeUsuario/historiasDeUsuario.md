@@ -7,7 +7,7 @@
 ## Histórico
 |**Versão**|**Data**|**Alteração no Documento**|**Autor**|
 |------|----|---------|-----|
-|1.0|01/07/22|Criação do documento|Pedro Melo|
+|1.0|01/07/22|Criação do documento|Pedro Ivo|
 |1.1|01/07/22|Alteração do documento|Lucas Oliveira|
 
 
