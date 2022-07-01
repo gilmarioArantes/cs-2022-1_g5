@@ -35,6 +35,8 @@
 **Então:** o sistema deve disponibilizar a tela inicial do sistema<br>
 <br>
 <br>
+
+
 **Cenário 2:** realizar cadastro de um novo usuário
 
 **Dado:** que eu esteja autenticado no sistema como usuário administrador 
@@ -48,6 +50,8 @@
 **Então:** o sistema deve cadastrar esse novo usuário
 <br>
 <br>
+
+
 **Cenário 3:** realizar a edição do cadastro de um usuário
 
 **Dado:** que eu esteja autenticado no sistema como usuário administrador 
@@ -58,9 +62,11 @@
 
 **E:** clicar em salvar
 
-***Então:** o sistema deve atualizar o cadastro desse usuário
+**Então:** o sistema deve atualizar o cadastro desse usuário
 <br>
 <br>
+
+
 **Cenário 4:** realizar a remoção do cadastro de um usuário
 
 **Dado:** que eu esteja autenticado no sistema como usuário administrador 
@@ -74,6 +80,8 @@
 **Então:** o sistema deve remover o cadastro desse usuário
 <br>
 <br>
+
+
 **Cenário 5:** realizar a visualização do cadastro de um usuário
 
 **Dado:** que eu esteja autenticado no sistema como usuário administrador 
