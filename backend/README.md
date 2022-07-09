@@ -5,7 +5,7 @@ https://biblio-cs-app.herokuapp.com/swagger-ui.html
 <br>
 
 #### Variáveis de Ambiente:
-Será necessário criar variáveis de ambiente para utilizar o Postgres <br>
+Será necessário criar variáveis de ambiente para utilizar o Postgres.<br>
 Execute os comandos abaixo com o prompt de comando modo administrador, ou crie as variáveis de ambiente no sistema operacional.<br>
 
 SETX DATABASE_URL jdbc:postgres://localhost:5432/{nome_banco} /M <br>
