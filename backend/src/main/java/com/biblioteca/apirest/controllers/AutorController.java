@@ -52,8 +52,9 @@ public class AutorController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     @ApiOperation(value="Deleta autor")
     @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", example = "Bearer access_token")
-    @DeleteMapping("/autor")
-    public void deletaAutor(@RequestBody Autor autor){
+    @DeleteMapping("/autor/{id}")
+    public void deletaAutor(@PathVariable(value="id") long id) {
+        Autor autor = autorRepository.findById(id);
         autorRepository.delete(autor);
     }
 }
