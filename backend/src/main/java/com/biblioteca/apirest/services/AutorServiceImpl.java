@@ -1,8 +1,10 @@
 package com.biblioteca.apirest.services;
 
 import com.biblioteca.apirest.models.Autor;
+import com.biblioteca.apirest.payload.response.MessageResponse;
 import com.biblioteca.apirest.repository.AutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,13 +16,20 @@ public class AutorServiceImpl implements AutorService{
     private AutorRepository autorRepository;
 
     @Override
-    public Autor save(Autor autor) {
-        return autorRepository.save(autor);
+    public ResponseEntity<?> save(Autor autor) {
+        if (autorRepository.existsByName(autor.getName())) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Erro: Já existe um autor com esse nome"));
+        }
+        return ResponseEntity.ok(autorRepository.save(autor));
     }
 
     @Override
-    public Autor find(long id) {
-        return autorRepository.findById(id);
+    public ResponseEntity<?> find(long id) {
+
+        if (!autorRepository.existsById(id)) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Erro: Não existe usuário coom esse id"));
+        }
+        return ResponseEntity.ok(autorRepository.findById(id));
     }
 
     @Override
@@ -30,12 +39,16 @@ public class AutorServiceImpl implements AutorService{
 
     @Override
     public void delete(long id) {
-        Autor autor = autorRepository.findById(id);
-        autorRepository.delete(autor);
+        if (autorRepository.existsById(id)) {
+            Autor autor = autorRepository.findById(id);
+            autorRepository.delete(autor);
+        }
+
     }
 
     @Override
     public long count() {
+
         return autorRepository.count();
     }
 }
