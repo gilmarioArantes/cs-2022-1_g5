@@ -104,7 +104,7 @@ public class AuthController {
                  role = roleRepository.findByName(TypeRole.ROLE_ADMIN)
                         .orElseThrow(() -> new RuntimeException("Erro: a função não foi encontrada."));
             } else if (strRole.equals("mod")) {
-                role = roleRepository.findByName(TypeRole.ROLE_MODERATOR)
+                role = roleRepository.findByName(TypeRole.ROLE_LIBRARIAN)
                         .orElseThrow(() -> new RuntimeException("Erro: a função não foi encontrada."));
             } else {
                 role = roleRepository.findByName(TypeRole.ROLE_USER)
