@@ -17,7 +17,7 @@ public class AutorController {
     @Autowired
     private AutorRepository autorRepository;
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('LIBRARIAN') or hasRole('USER')")
     @ApiOperation(value="Mostra lista de autores")
     @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", example = "Bearer access_token")
     @GetMapping("/autores")
@@ -25,7 +25,7 @@ public class AutorController {
         return autorRepository.findAll();
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('LIBRARIAN') or hasRole('USER')")
     @ApiOperation(value="Mostra autor específico")
     @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", example = "Bearer access_token")
     @GetMapping("/autor/{id}")
@@ -33,7 +33,7 @@ public class AutorController {
         return autorRepository.findById(id);
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('LIBRARIAN')")
     @ApiOperation(value="Cadastra um novo autor")
     @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", example = "Bearer access_token")
     @PostMapping("/autor")
@@ -41,7 +41,7 @@ public class AutorController {
         return autorRepository.save(autor);
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('LIBRARIAN')")
     @ApiOperation(value="Edita autor")
     @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", example = "Bearer access_token")
     @PutMapping("/autor")
@@ -49,7 +49,7 @@ public class AutorController {
         return autorRepository.save(autor);
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('LIBRARIAN')")
     @ApiOperation(value="Deleta autor")
     @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", example = "Bearer access_token")
     @DeleteMapping("/autor/{id}")
