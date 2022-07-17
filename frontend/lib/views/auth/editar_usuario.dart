@@ -1,30 +1,40 @@
 import 'package:csbiblio/componentes/form_field_padrao.dart';
+import 'package:csbiblio/models/Usuario.dart';
 import 'package:csbiblio/services/usuario_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-class CadastrarUsuarioView extends StatefulWidget {
-  const CadastrarUsuarioView({Key? key}) : super(key: key);
+class EditarUsuarioView extends StatefulWidget {
+  Usuario usuario;
+
+  EditarUsuarioView({Key? key, required this.usuario}) : super(key: key);
 
   @override
-  _CadastrarUsuarioViewState createState() => _CadastrarUsuarioViewState();
+  _EditarUsuarioViewState createState() => _EditarUsuarioViewState();
 }
 
-class _CadastrarUsuarioViewState extends State<CadastrarUsuarioView> {
+class _EditarUsuarioViewState extends State<EditarUsuarioView> {
   final usuario = TextEditingController();
   final email = TextEditingController();
-  final senha = TextEditingController();
-  final confirmarSenha = TextEditingController();
   final formKey = GlobalKey<FormState>();
   String funcao = 'Usuário';
   List<String> funcoes = ["Usuário", "Moderador", "Administrador"];
 
   @override
   Widget build(BuildContext context) {
+    usuario.text = widget.usuario.username!;
+    email.text = widget.usuario.email!;
+    if (widget.usuario.role!.name == "ROLE_USER") {
+      funcao = "Usuário";
+    } else if (widget.usuario.role!.name == "ROLE_ADMIN") {
+      funcao = "Administrador";
+    } else {
+      funcao = "Moderador";
+    }
     return Scaffold(
       appBar: AppBar(
-        title: Text("Cadastrar usuário"),
+        title: Text("Editar usuário"),
       ),
       body: Form(
         key: formKey,
@@ -42,22 +52,6 @@ class _CadastrarUsuarioViewState extends State<CadastrarUsuarioView> {
               FormFieldPadrao(
                 controle: email,
                 title: "Email",
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              FormFieldPadrao(
-                controle: senha,
-                title: "Senha",
-                obscure: true,
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              FormFieldPadrao(
-                controle: confirmarSenha,
-                title: "Confirmar senha",
-                obscure: true,
               ),
               SizedBox(
                 height: 15,
@@ -91,30 +85,23 @@ class _CadastrarUsuarioViewState extends State<CadastrarUsuarioView> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
-                      if (senha.text == confirmarSenha.text) {
-                        Provider.of<UsuarioService>(context, listen: false)
-                            .registrarUsuario(
-                                usuario.text, email.text, senha.text, funcao)
-                            .then((value) {
-                          if (value == "User registered successfully!") {
-                            Get.snackbar(
-                                "Cadastro de usuário", value.toString(),
-                                backgroundColor: Colors.green.shade100);
-                            Navigator.of(context).pop();
-                          } else {
-                            Get.snackbar(
-                                "Erro ao cadastrar usuário", value.toString(),
-                                backgroundColor: Colors.red.shade100);
-                          }
-                        });
-                      } else {
-                        Get.snackbar("Erro ao cadastrar usuário",
-                            "As senhas são diferentes, verifique",
-                            backgroundColor: Colors.red.shade100);
-                      }
+                      Provider.of<UsuarioService>(context, listen: false)
+                          .editarUsuario(
+                              widget.usuario, usuario.text, email.text, funcao)
+                          .then((value) {
+                        if (value == "Editado com sucesso") {
+                          Get.snackbar("Edição de usuário", value.toString(),
+                              backgroundColor: Colors.green.shade100);
+                          Navigator.of(context).pop();
+                        } else {
+                          Get.snackbar(
+                              "Erro ao editar usuário", value.toString(),
+                              backgroundColor: Colors.red.shade100);
+                        }
+                      });
                     }
                   },
-                  child: Text("Cadastrar"),
+                  child: Text("Editar"),
                 ),
               ),
             ],

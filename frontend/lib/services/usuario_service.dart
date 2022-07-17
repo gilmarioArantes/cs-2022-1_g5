@@ -1,5 +1,7 @@
 import 'dart:collection';
 import 'dart:convert';
+import 'dart:math';
+import 'package:csbiblio/models/Role.dart';
 import 'package:csbiblio/models/Usuario.dart';
 
 import 'package:csbiblio/util/contantes.dart';
@@ -18,6 +20,7 @@ class UsuarioService extends ChangeNotifier {
   }
 
   _buscarUsuarios() async {
+    _usuarios = [];
     String? value = await storage.read(key: "tokenKey");
     String uri = '${servidor}api/auth/users';
     final response = await http.get(Uri.parse(uri), headers: {
@@ -63,7 +66,68 @@ class UsuarioService extends ChangeNotifier {
       }),
     );
 
+    _buscarUsuarios();
+    notifyListeners();
+
     return jsonDecode(response.body)["message"] ??
         "Não foi possível realizar o cadastro";
   }
+
+  Future<String> editarUsuario(Usuario user,String usuario, String email, String funcao) async {
+    Role role = Role();
+    if (funcao == "Usuário") {
+      role.setName("ROLE_USER");
+      role.setId(3);
+    } else if (funcao == "Moderador") {
+      role.setName("ROLE_MODERATOR");
+      role.setId(2);
+    } else {
+      role.setName("ROLE_ADMIN");
+      role.setId(1);
+    }
+
+    String? value = await storage.read(key: "tokenKey");
+    final http.Response response = await http.put(
+      Uri.parse('${servidor}/api/auth/user'),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer ${value}"
+      },
+      body: jsonEncode(<String, String>{
+        "id": user.id.toString(),
+        "email": email,
+        "username": usuario
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      _usuarios.forEach((element) {
+        if (element.id == user.id) {
+          element.setUsername(usuario);
+          element.setEmail(email);
+          notifyListeners();
+        }
+      });
+      return "Editado com sucesso";
+    } else {
+      return "Não foi possível editar";
+    }
+  }
+
+  Future<http.Response> deletarUsuario(String id) async {
+    String? value = await storage.read(key: "tokenKey");
+    final http.Response response = await http.delete(
+      Uri.parse('${servidor}api/auth/user/${id}'),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer ${value}"
+      },
+    );
+    _buscarUsuarios();
+    notifyListeners();
+
+    return response;
+  }
+
+
 }

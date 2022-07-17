@@ -54,6 +54,7 @@ public class AuthController {
     @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", example = "Bearer access_token")
     @PreAuthorize("hasRole('ADMIN')")
     public List<User> getUsers(){
+
         return userRepository.findAll();
     }
     
@@ -88,10 +89,10 @@ public class AuthController {
             return ResponseEntity.badRequest().body(new MessageResponse("Erro: Já existe um usuário com esse nome"));
         }
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: Já existe um usuário com esse email!"));
+            return ResponseEntity.badRequest().body(new MessageResponse("Erro: Já existe um usuário com esse email!"));
         }
         if(signUpRequest.getPassword().length() < 6){
-            return ResponseEntity.badRequest().body(new MessageResponse("A senha possui menos de 6 caracteres!"));
+            return ResponseEntity.badRequest().body(new MessageResponse("Erro: A senha possui menos de 6 caracteres!"));
         }
 
         User user = new User(signUpRequest.getUsername(),
@@ -103,7 +104,7 @@ public class AuthController {
                  role = roleRepository.findByName(TypeRole.ROLE_ADMIN)
                         .orElseThrow(() -> new RuntimeException("Erro: a função não foi encontrada."));
             } else if (strRole.equals("mod")) {
-                role = roleRepository.findByName(TypeRole.ROLE_MODERATOR)
+                role = roleRepository.findByName(TypeRole.ROLE_LIBRARIAN)
                         .orElseThrow(() -> new RuntimeException("Erro: a função não foi encontrada."));
             } else {
                 role = roleRepository.findByName(TypeRole.ROLE_USER)
