@@ -17,7 +17,6 @@ public class Autor implements Serializable {
     @NotBlank
     private String name;
 
-
     public long getId() {
         return id;
     }

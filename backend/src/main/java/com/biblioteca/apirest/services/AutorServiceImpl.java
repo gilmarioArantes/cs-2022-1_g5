@@ -19,17 +19,19 @@ public class AutorServiceImpl implements AutorService{
     public ResponseEntity<?> save(Autor autor) {
         if (autorRepository.existsByName(autor.getName())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Erro: Já existe um autor com esse nome"));
+        }else{
+            return ResponseEntity.ok(autorRepository.save(autor));
         }
-        return ResponseEntity.ok(autorRepository.save(autor));
     }
 
     @Override
     public ResponseEntity<?> find(long id) {
 
         if (!autorRepository.existsById(id)) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Erro: Não existe usuário coom esse id"));
+            return ResponseEntity.badRequest().body(new MessageResponse("Erro: Não existe autor com esse id"));
+        }else {
+            return ResponseEntity.ok(autorRepository.findById(id));
         }
-        return ResponseEntity.ok(autorRepository.findById(id));
     }
 
     @Override
