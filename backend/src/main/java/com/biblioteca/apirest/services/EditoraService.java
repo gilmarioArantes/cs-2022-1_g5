@@ -16,7 +16,7 @@ public class EditoraService {
 	private EditoraRepository editoraRepository;
 
 	public ResponseEntity<?> save(Editora editora){
-		if (editoraRepository.existsByName(editora.getNome())){
+		if (editoraRepository.existsByNome(editora.getNome())){
 			return ResponseEntity.badRequest().body(new MessageResponse("Erro: Já existe uma editora com esse nome"));
 		}else{
 			return ResponseEntity.ok(editoraRepository.save(editora));
