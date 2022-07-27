@@ -9,7 +9,7 @@ public interface AutorRepository extends JpaRepository<Autor, Long> {
 
     Autor findById(long id);
 
-    Boolean existsByName(String username);
+    Boolean existsByNome(String username);
 
     Boolean existsById(long id);
 

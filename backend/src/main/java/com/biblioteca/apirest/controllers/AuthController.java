@@ -1,6 +1,5 @@
 package com.biblioteca.apirest.controllers;
 
-
 import com.biblioteca.apirest.models.Role;
 import com.biblioteca.apirest.models.TypeRole;
 import com.biblioteca.apirest.models.User;
@@ -25,9 +24,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)

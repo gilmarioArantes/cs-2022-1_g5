@@ -32,7 +32,7 @@ public class EditoraController {
 	@ApiOperation(value="Cadastrar uma nova editora")
 	@ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", example = "Bearer access_token")
 	@PostMapping("/editora")
-	public ResponseEntity<?> adicionar(@RequestBody Editora editora) {
+	public ResponseEntity<?> cadastrarEditora(@RequestBody Editora editora) {
 
 		return editoraService.save(editora);
 	}
@@ -41,7 +41,7 @@ public class EditoraController {
 	@ApiOperation(value="Buscar todas as editoras")
 	@ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", example = "Bearer access_token")
 	@GetMapping("/editoras")
-	public List<Editora> listar() {
+	public List<Editora> listarEditoras() {
 
 		return editoraService.findAll();
 	}
@@ -50,7 +50,7 @@ public class EditoraController {
 	@ApiOperation(value="Buscar editora por id")
 	@ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", example = "Bearer access_token")
 	@GetMapping("/editora/{id}")
-	public ResponseEntity<?> buscar(@PathVariable(value = "id") long id) {
+	public ResponseEntity<?> editoraUnico(@PathVariable(value = "id") long id) {
 
 		return editoraService.find(id);
 	}
@@ -59,7 +59,7 @@ public class EditoraController {
 	@ApiOperation(value="Editar editora por id")
 	@ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", example = "Bearer access_token")
 	@PutMapping("/editora/{id}")
-	public ResponseEntity<?> atualizar(@RequestBody Editora editora) {
+	public ResponseEntity<?> atualizarEditora(@RequestBody Editora editora) {
 
 		return editoraService.save(editora);
 	}
@@ -68,8 +68,8 @@ public class EditoraController {
 	@ApiOperation(value="Deletar editora por id")
 	@ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", example = "Bearer access_token")
 	@DeleteMapping("/editora/{id}")
-	public void romover(@PathVariable(value = "id") long id) {
+	public ResponseEntity<?> deletarEditora(@PathVariable(value = "id") long id) {
 
-		editoraService.delete(id);
+		return editoraService.delete(id);
 	}
 }

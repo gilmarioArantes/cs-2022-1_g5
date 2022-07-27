@@ -24,7 +24,6 @@ public class EditoraService {
 	}
 
 	public ResponseEntity<?> find(long id){
-
 		if (!editoraRepository.existsById(id)){
 			return ResponseEntity.badRequest().body(new MessageResponse("Erro: Não existe editora com esse id"));
 		}else{
@@ -33,17 +32,22 @@ public class EditoraService {
 	}
 
 	public List<Editora> findAll(){
+
 		return editoraRepository.findAll();
 	}
 
-	public void delete(long id){
+	public ResponseEntity<?> delete(long id){
 		if (editoraRepository.existsById(id)){
 			Editora editora = editoraRepository.findById(id);
 			editoraRepository.delete(editora);
+			return ResponseEntity.ok("Editora excluída com sucesso");
+		}else{
+			return ResponseEntity.badRequest().body(new MessageResponse("Erro: Não existe editora com esse id"));
 		}
 	}
 
 	public long count(){
+
 		return editoraRepository.count();
 	}
 }

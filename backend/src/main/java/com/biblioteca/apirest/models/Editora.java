@@ -1,12 +1,13 @@
 package com.biblioteca.apirest.models;
 
+import lombok.Data;
 import java.io.Serializable;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
-import lombok.Data;
 
+
+@Data
 @Entity
 @Table(name = "editoras")
 public class Editora implements Serializable {
@@ -20,20 +21,5 @@ public class Editora implements Serializable {
 	@NotBlank
 	private String nome;
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
 
 }

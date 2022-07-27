@@ -22,7 +22,7 @@ public class AutorController {
     @ApiOperation(value="Mostra lista de autores")
     @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", example = "Bearer access_token")
     @GetMapping("/autores")
-    public List<Autor> listaAutores(){
+    public List<Autor> listarAutores(){
 
         return autorService.findAll();
     }
@@ -40,7 +40,7 @@ public class AutorController {
     @ApiOperation(value="Cadastra um novo autor")
     @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", example = "Bearer access_token")
     @PostMapping("/autor")
-    public ResponseEntity<?> cadastraAutor(@RequestBody Autor autor){
+    public ResponseEntity<?> cadastrarAutor(@RequestBody Autor autor){
 
         return autorService.save(autor);
     }
@@ -49,7 +49,7 @@ public class AutorController {
     @ApiOperation(value="Edita autor")
     @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", example = "Bearer access_token")
     @PutMapping("/autor")
-    public ResponseEntity<?> editaAutor(@RequestBody Autor autor){
+    public ResponseEntity<?> editarAutor(@RequestBody Autor autor){
 
         return autorService.save(autor);
     }
@@ -58,8 +58,8 @@ public class AutorController {
     @ApiOperation(value="Deleta autor")
     @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", example = "Bearer access_token")
     @DeleteMapping("/autor/{id}")
-    public void deletaAutor(@PathVariable(value="id") long id) {
+    public ResponseEntity<?> deletarAutor(@PathVariable(value="id") long id) {
 
-        autorService.delete(id);
+        return autorService.delete(id);
     }
 }
