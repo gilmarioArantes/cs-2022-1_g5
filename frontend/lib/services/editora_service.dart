@@ -1,24 +1,25 @@
 import 'dart:collection';
 import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:csbiblio/models/Autor.dart';
+
+import 'package:csbiblio/models/Editora.dart';
 import 'package:csbiblio/util/contantes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:http/http.dart' as http;
 
-class AutorService extends ChangeNotifier {
-  List<Autor> _autores = [];
+class EditoraService extends ChangeNotifier {
+  List<Editora> _editoras = [];
   final storage = new FlutterSecureStorage();
 
-  UnmodifiableListView<Autor> get autores => UnmodifiableListView(_autores);
+  UnmodifiableListView<Editora> get editoras => UnmodifiableListView(_editoras);
 
-  AutorService() {
-    _buscarAutores();
+  EditoraService() {
+    _buscarEditoras();
   }
 
-  _buscarAutores() async {
+  _buscarEditoras() async {
     String? value = await storage.read(key: "tokenKey");
-    String uri = '${servidor}api/autores';
+    String uri = '${servidor}api/editoras';
     final response = await http.get(Uri.parse(uri), headers: {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${value}"
@@ -26,20 +27,20 @@ class AutorService extends ChangeNotifier {
 
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
-      List<dynamic> listaAutores = json;
+      List<dynamic> listaEditoras = json;
 
-      listaAutores.forEach((autor) {
-        Autor at = Autor.fromJson(autor);
-        _autores.add(at);
+      listaEditoras.forEach((editora) {
+        Editora ed = Editora.fromJson(editora);
+        _editoras.add(ed);
       });
       notifyListeners();
     }
   }
 
-  Future<String> cadastrarAutor(String nome) async {
+  Future<String> cadastrarEditora(String nome) async {
     String? value = await storage.read(key: "tokenKey");
     final http.Response response = await http.post(
-      Uri.parse('${servidor}api/autor'),
+      Uri.parse('${servidor}api/editora'),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Authorization': "Bearer ${value}"
@@ -51,9 +52,9 @@ class AutorService extends ChangeNotifier {
 
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
-      final autor = json;
-      Autor aut = Autor.fromJson(autor);
-      _autores.add(aut);
+      final editora = json;
+      Editora edi = Editora.fromJson(editora);
+      _editoras.add(edi);
       notifyListeners();
 
       return "Cadatrado com sucesso";
@@ -62,35 +63,37 @@ class AutorService extends ChangeNotifier {
     }
   }
 
-  Future<String> editarAutor(Autor autor) async {
+  Future<String> editarEditora(Editora editora) async {
     String? value = await storage.read(key: "tokenKey");
     final http.Response response = await http.put(
-      Uri.parse('${servidor}api/autor'),
+      Uri.parse('${servidor}api/editora/${editora.id}'),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Authorization': "Bearer ${value}"
       },
-      body: json.encode(autor.toJson()),
+      body: json.encode(editora.toJson()),
     );
 
     if (response.statusCode == 200) {
-      _autores.forEach((element) {
-        if (element.id == autor.id) {
-          element.setNome(autor.nome!);
+      _editoras.forEach((element) {
+        if (element.id == editora.id) {
+          element.setNome(editora.nome!);
           notifyListeners();
         }
       });
       return "Editado com sucesso";
     } else {
+      print(editora.nome);
+      print(editora.id);
       return "Não foi possível editar";
     }
   }
 
-  Future<String> deletarAutor(String id) async {
+  Future<String> deletarEditora(String id) async {
     print(id);
     String? value = await storage.read(key: "tokenKey");
     final http.Response response = await http.delete(
-      Uri.parse('${servidor}api/autor/${id}'),
+      Uri.parse('${servidor}api/editora/${id}'),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Authorization': "Bearer ${value}"
@@ -98,7 +101,7 @@ class AutorService extends ChangeNotifier {
     );
 
     if (response.statusCode == 200) {
-      _autores.removeWhere((element) => element.id.toString() == id);
+      _editoras.removeWhere((element) => element.id.toString() == id);
       notifyListeners();
       return "Deletado com sucesso";
     } else {

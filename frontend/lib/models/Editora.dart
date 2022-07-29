@@ -1,5 +1,6 @@
-class Autor {
-  Autor({
+
+class Editora {
+  Editora({
     int? id,
     String? nome,
   }) {
@@ -7,7 +8,7 @@ class Autor {
     _nome = nome;
   }
 
-  Autor.fromJson(dynamic json) {
+  Editora.fromJson(dynamic json) {
     _id = json['id'];
     _nome = json['nome'];
   }
@@ -15,22 +16,22 @@ class Autor {
   int? _id;
   String? _nome;
 
-  Autor copyWith({
+  Editora copyWith({
     int? id,
     String? nome,
   }) =>
-      Autor(
+      Editora(
         id: id ?? _id,
         nome: nome ?? _nome,
       );
 
   int? get id => _id;
 
-  void setNome(String valor) {
+  void setNome(String valor){
     _nome = valor;
   }
 
-  void setId(int valor) {
+  void setId(int valor){
     _id = valor;
   }
 
